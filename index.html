@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+
+            $("img").click(function(){
+                $.get("https://anapioficeandfire.com/api/houses/"+$(this).attr("id")+"/", function(res) {
+                    console.log(res);
+                    var html_str = "";
+                    html_str += "<h2>Name: "+res.name+"</h2>";
+                    html_str += "<h2>Words: "+res.words+"</h2>";
+                    html_str += "<br><h2>Titles: "
+                    for(var i = 0; i < res.titles.length; i++) {
+                        if(i == res.titles.length-1){//no comma on the last item
+                            html_str += res.titles[i]
+                        }
+                        else {
+                            html_str += res.titles[i] + ", ";
+                        }
+                    }
+                    $(".info").html(html_str);
+                }, "json")
+            })
+
+        })
+    </script>
+    <style>
+        img {
+        display: inline-block;
+        height: 200px;
+        margin: 10px;
+        }
+        h1 {
+            position: relative;
+            top: 55px;
+            left: 375px;
+        }
+        .info{
+            border: 2px solid black;
+            width: 700px;
+            position: relative;
+            top: 50px;
+            left: 375px;
+        }
+    </style>
+    <title>Game of Thrones</title>
+</head>
+<body>
+    <div class="display">
+        <img src="stark.jpg" alt="Stark" id="362">
+        <img src="targaryen.jpg" alt="Targaryen" id="378">
+        <img src="lannister.jpg" alt="Lannister" id="230">
+        <img src="baratheon.png" alt="Baratheon" id="15">
+    </div>
+    <h1>House Details</h1>
+    <div class="info">
+
+    </div>
+</body>
+</html>
